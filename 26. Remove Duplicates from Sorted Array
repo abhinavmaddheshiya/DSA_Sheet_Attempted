@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int index=1;
+        int i=0;
+        while(i<nums.size()-1){
+            if(nums[i]!=nums[i+1])nums[index++]=nums[i+1];
+            i++;
+        }
+        return index;
+    }
+};
+// class Solution {
+// public:
+//     int removeDuplicates(vector<int>& nums) {
+//         int duplicate=0;
+//         for(int i=0;i<nums.size()-duplicate;i++){
+//             int j=i-1;
+//             if(j>=0 && nums[i]==nums[j]){
+//                 duplicate++;
+//                 int temp=i;
+//                 for(int k=j;k<nums.size() && temp<nums.size();k++){
+//                     nums[k]=nums[temp++];
+//                 }
+//                 i--;
+//             }
+//         }
+//         return nums.size()-duplicate;
+//     }
+// };
