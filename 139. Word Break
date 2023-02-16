@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int dp[301];
+    bool helper(int i, string s, set<string>& dict){
+        if(i==s.size())return true;
+        if(dp[i]!=-1)return dp[i];
+        string curr;
+        for(int j=i;j<s.length();j++){
+            curr+=s[j];
+            if(dict.find(curr)!=dict.end())
+            {
+                bool smalloutput = helper(j+1, s, dict);
+                if(smalloutput)return dp[i]=1;
+            }
+        }
+        return dp[i]=0;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> dict;
+        for(auto a: wordDict)dict.insert(a);
+        memset(dp, -1, sizeof(dp));
+        return helper(0, s, dict);
+    }
+};
+/*tle
+class Solution {
+public:
+    bool helper(int i, string s, set<string>& dict){
+        if(i==s.size())return true;
+        string curr;
+        for(int j=i;j<s.length();j++){
+            curr+=s[j];
+            if(dict.find(curr)!=dict.end())
+            {
+                bool smalloutput = helper(j+1, s, dict);
+                if(smalloutput)return true;
+            }
+        }
+        return false;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> dict;
+        for(auto a: wordDict)dict.insert(a);
+        return helper(0, s, dict);
+    }
+};*/
