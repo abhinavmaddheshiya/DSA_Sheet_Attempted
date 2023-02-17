@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int dp[10001];
+    int helper(vector<int>& coins, int amount){
+        if(amount==0){
+            dp[amount]=0;
+            return 0;
+        }
+        if(dp[amount]!=-1)return dp[amount];
+        int ans=INT_MAX;
+        for(int i=coins.size()-1;i>=0;i--){
+            if(coins[i]<=amount){
+                int smalloutput = helper(coins, amount-coins[i]);
+                if(smalloutput!=INT_MAX)ans=min(ans, smalloutput+1);
+            }
+        }
+        return dp[amount]=ans;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        memset(dp, -1, sizeof(dp));
+        int ans = helper(coins, amount);
+        return ans==INT_MAX? -1:ans;
+    }
+};
+/*
+class Solution {
+public:
+    int helper(vector<int>& coins, int amount){
+        if(amount==0)return 0;
+        int ans=INT_MAX;
+        for(int i=coins.size()-1;i>=0;i--){
+            if(coins[i]<=amount){
+                int smalloutput = helper(coins, amount-coins[i]);
+                if(smalloutput!=INT_MAX)ans=min(ans, smalloutput+1);
+            }
+        }
+        return ans;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int ans = helper(coins, amount);
+        return ans==INT_MAX? -1:ans;
+    }
+};
+*/
