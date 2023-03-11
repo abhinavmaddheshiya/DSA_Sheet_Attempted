@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> result;
+        sort(nums.begin(), nums.end());
+        int i=0;
+        while(i<nums.size()) {
+            int first=nums[i];
+            int sum=(-1)*nums[i];
+            pairSum(nums, sum, i, result);
+            while(i<nums.size() && first==nums[i])i++;
+        }
+        return result;
+    }
+private:
+    void pairSum(vector<int>& nums, int sum, int idx, vector<vector<int>>& result){
+        int start=idx+1;
+        int end=nums.size()-1;
+        while(start<end){
+            if(nums[start]+nums[end]==sum){
+                vector<int> temp;
+                temp.push_back(nums[idx]);
+                temp.push_back(nums[start]);
+                temp.push_back(nums[end]);
+                result.push_back(temp);
+                int second=nums[start];
+                int third=nums[end];
+                start++,end--;
+                while(start<nums.size() && second==nums[start])start++;
+                while(start<end && third==nums[end])end--;
+            }else if(nums[start]+nums[end]>sum){
+                end--;
+            }else{
+                start++;
+            }
+        }
+    }
+};
