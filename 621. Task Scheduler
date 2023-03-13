@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        if(n==0)return tasks.size();
+        unordered_map<char, int> mp;
+        int maxi=0;
+        char charMax;
+        for(auto task:tasks){
+            mp[task]++;
+            if(mp[task]>maxi){
+                maxi=mp[task];
+                charMax=task;
+            }
+        }
+        int time=0;
+        int maxFreq=mp[charMax];
+        int add=(n+1)*maxFreq;
+        time+=add;
+        time-=n;
+        mp[charMax]=0;
+        for(auto c:mp){
+            if(c.second==maxFreq)time++;
+        }
+        return max(time, (int)tasks.size());
+    }
+};
