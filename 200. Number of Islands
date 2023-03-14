@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        vector<vector<int>> visited(grid.size(), vector<int>(grid[0].size(), -1));
+        int result=0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[i].size();j++){
+                if(visited[i][j]==-1 && grid[i][j]=='1'){
+                    result++;
+                    findAllOne(grid, visited, i, j);
+                }
+            }
+        }
+        return result;
+    }
+private:
+    void findAllOne(vector<vector<char>>& grid, vector<vector<int>>& visited, int row, int col) {
+        visited[row][col]=2;
+        int n=grid.size();
+        int m=grid[0].size();
+        queue<pair<int, int>> q;
+        q.push({row, col});
+        while(!q.empty()){
+            int currRow=q.front().first;
+            int currCol=q.front().second;
+            if(currRow-1>=0 && grid[currRow-1][currCol]=='1' && visited[currRow-1][currCol]==-1){
+                q.push({currRow-1, currCol});
+                visited[currRow-1][currCol]=2;
+            }
+            if(currCol-1>=0 && grid[currRow][currCol-1]=='1' && visited[currRow][currCol-1]==-1){
+                q.push({currRow, currCol-1});
+                visited[currRow][currCol-1]=2;
+            }
+            // if(currRow-1>=0 && currCol-1>=0 && grid[currRow-1][currCol-1]=='1' && visited[currRow-1][currCol-1]==-1){
+            //     q.push({currRow-1, currCol-1});
+            //     visited[currRow-1][currCol-1]=2;
+            // }
+            if(currRow+1<n && grid[currRow+1][currCol]=='1' && visited[currRow+1][currCol]==-1){
+                q.push({currRow+1, currCol});
+                visited[currRow+1][currCol]=2;
+            }
+            if(currCol+1<m && grid[currRow][currCol+1]=='1' && visited[currRow][currCol+1]==-1){
+                q.push({currRow, currCol+1});
+                visited[currRow][currCol+1]=2;
+            }
+            // if(currRow+1<n && currCol+1<m && grid[currRow+1][currCol+1]=='1' && visited[currRow+1][currCol+1]==-1){
+            //     q.push({currRow+1, currCol+1});
+            //     visited[currRow+1][currCol+1]=2;
+            // }
+            // if(currRow-1>=0 && currCol+1<m && grid[currRow-1][currCol+1]=='1' && visited[currRow-1][currCol+1]==-1){
+            //     q.push({currRow, currCol+1});
+            //     visited[currRow-1][currCol+1]=2;
+            // }
+            // if(currRow+1<n && currCol-1>=0 && grid[currRow+1][currCol-1]=='1' && visited[currRow+1][currCol-1]==-1){
+            //     q.push({currRow+1, currCol+1});
+            //     visited[currRow+1][currCol-1]=2;
+            // }
+            q.pop();
+        }
+    }
+};
