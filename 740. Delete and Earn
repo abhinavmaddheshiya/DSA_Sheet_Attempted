@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+        int maxi=nums[0];
+        for(int i=1;i<nums.size();i++){
+            maxi=max(nums[i], maxi);
+        }
+        vector<int> help(maxi+1, 0);
+        for(int i=0;i<nums.size();i++){
+            help[nums[i]]++;
+        }
+        int result=0;
+        int include=0;
+        int exclude=0;
+        for(int i=1;i<help.size();i++){
+            int curr_in=exclude+help[i]*i;
+            int curr_ex=max(include, exclude);
+            result=max(curr_in, curr_ex);
+            include=curr_in;
+            exclude=curr_ex;
+        }
+        return result;
+    }
+};
