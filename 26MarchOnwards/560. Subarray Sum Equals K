@@ -1,0 +1,21 @@
+/*for fast i/o in c++
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);*/
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        unordered_map<long, int> prefixMap;
+        long prefixSum=0;
+        int count=0;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            prefixSum+=nums[i];
+            if(prefixSum==k)count++;
+            if(prefixMap.count(prefixSum-k)>0)count+=prefixMap[prefixSum-k];
+            prefixMap[prefixSum]+=1;
+        }
+        return count;
+    }
+};
