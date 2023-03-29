@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int getSum(int a, int b) {
+        int sum=a^b;
+        int carry=(unsigned int) (a&b)<<1;
+        while(carry!=0){
+            int temp=sum^carry;
+            carry=(unsigned int) (sum&carry)<<1;
+            sum=temp;
+        }
+        return sum;
+    }
+};
