@@ -9,21 +9,17 @@ public:
                 break;
             }
         }
-        if(idx==-1){
-            sort(nums.begin(), nums.end());
-            return;
-        }
         //random big value
         int diff=1000;
         int swapidx=idx;
-        for(int j=idx+1;j<n;j++){
+        for(int j=idx+1;j<n && idx!=-1;j++){
             int currDiff=(nums[j]-nums[idx]);
-            if(diff>currDiff && currDiff>0){
+            if(diff>=currDiff && currDiff>0){
                 diff=currDiff;
                 swapidx=j;
             }
         }
-        swap(nums[idx], nums[swapidx]);
-        sort(nums.begin()+idx+1, nums.end());
+        if(idx!=-1)swap(nums[idx], nums[swapidx]);
+        reverse(nums.begin()+idx+1, nums.end());
     }
 };
